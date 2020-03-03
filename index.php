@@ -21,11 +21,16 @@ $url = $url."?".$querystring."&hash=".$hash;
 ?>
 
 <form method="post">
-Enter account and user<br/>
-Account ID <input type="text" name="accountid" /> <br/>
-User ID (opt.) <input type="text" name="userid" /> <br/>
+Enter ID to activate SSO connection<br/>
+Soluz.io ID <input type="text" name="accountid" /> <br/>
+<input name="userid" type="hidden" /> <br/>
 <button type="submit">Submit</button>
 </form>
+<?php
+
+
+
+?>
 <?php
 if ($show_url)
 { 
