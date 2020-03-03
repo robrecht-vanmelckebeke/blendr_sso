@@ -2,29 +2,28 @@
 $TIMESTAMP = time();
 $API_KEY = "...";
 $show_url = false;
-$url = "";
+$url = "https://globis.admin.blendr.io/sso";
+$querystring = "";
 if(isset($_POST["accountid"]))
 {
     $SOLUZIO_ACCOUNT_ID = $_POST["accountid"];
     $show_url = true;
-    $url = "https://globis.admin.blendr.io/sso?accountid=$SOLUZIO_ACCOUNT_ID";
+    $querystring .= "accountid=$SOLUZIO_ACCOUNT_ID";
 }
 if(isset($_POST["userid"]))
 {
-    $url .= "&userid=".$_POST["userid"];
+    $querystring .= "&userid=".$_POST["userid"];
 }
 
-$url .= "&timestamp=$TIMESTAMP";
-echo "URL : ".$url;
-$hash = hash_hmac( "sha256", urlencode($url), $API_KEY);
-echo "HASH : ".$hash;
-$url = $url."&hash=".$hash;
+$querystring .= "&timestamp=$TIMESTAMP";
+$hash = hash_hmac( "sha256", $querystring, $API_KEY);
+$url = $url."?".$querystring."&hash=".$hash;
 ?>
 
 <form method="post">
-TEST Form hier 
-Account ID <input type="text" name="accountid" />
-User ID <input type="text" name="userid" />
+Enter account and user<br/>
+Account ID <input type="text" name="accountid" /> <br/>
+User ID (opt.) <input type="text" name="userid" /> <br/>
 <button type="submit">Submit</button>
 </form>
 <?php
